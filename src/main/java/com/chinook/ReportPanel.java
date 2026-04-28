@@ -15,6 +15,7 @@ public class ReportPanel extends JPanel {
         JLabel title = new JLabel("Genre Revenue Report", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 18));
         title.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        title.setForeground(new java.awt.Color(0, 102, 204));
         add(title, BorderLayout.NORTH);
 
         String[] columns = {"Genre", "Total Revenue (USD)"};
