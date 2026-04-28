@@ -28,8 +28,8 @@ public class NotificationsPanel extends JPanel {
         // Buttons
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton addBtn    = new JButton("+ Add Customer");
-        JButton editBtn   = new JButton("✏ Edit Customer");
-        JButton deleteBtn = new JButton("🗑 Delete Customer");
+        JButton editBtn   = new JButton("Edit Customer");
+        JButton deleteBtn = new JButton("Delete Customer");
         btnPanel.add(addBtn);
         btnPanel.add(editBtn);
         btnPanel.add(deleteBtn);
