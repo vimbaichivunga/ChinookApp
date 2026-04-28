@@ -26,20 +26,31 @@ public class RecommendationsPanel extends JPanel {
         topPanel.add(customerBox);
         add(topPanel, BorderLayout.NORTH);
 
-        // Middle - spending summary
-        JPanel summaryPanel = new JPanel(new GridLayout(4, 2, 10, 5));
+        // Middle - spending summary + recommendations
+        JPanel middlePanel = new JPanel(new BorderLayout(10, 10));
+
+        // Summary panel
+        JPanel summaryPanel = new JPanel(new GridLayout(4, 2, 10, 8));
         summaryPanel.setBorder(BorderFactory.createTitledBorder("Spending Summary"));
+        summaryPanel.setPreferredSize(new Dimension(0, 130));
+
         totalSpentLabel     = new JLabel("-");
         totalPurchasesLabel = new JLabel("-");
         lastPurchaseLabel   = new JLabel("-");
         favouriteGenreLabel = new JLabel("-");
-        summaryPanel.add(new JLabel("Total Spent:")); summaryPanel.add(totalSpentLabel);
-        summaryPanel.add(new JLabel("Total Purchases:")); summaryPanel.add(totalPurchasesLabel);
-        summaryPanel.add(new JLabel("Last Purchase:")); summaryPanel.add(lastPurchaseLabel);
-        summaryPanel.add(new JLabel("Favourite Genre:")); summaryPanel.add(favouriteGenreLabel);
-        add(summaryPanel, BorderLayout.CENTER);
 
-        // Bottom - recommendations table
+        summaryPanel.add(new JLabel("  Total Spent:"));
+        summaryPanel.add(totalSpentLabel);
+        summaryPanel.add(new JLabel("  Total Purchases:"));
+        summaryPanel.add(totalPurchasesLabel);
+        summaryPanel.add(new JLabel("  Last Purchase:"));
+        summaryPanel.add(lastPurchaseLabel);
+        summaryPanel.add(new JLabel("  Favourite Genre:"));
+        summaryPanel.add(favouriteGenreLabel);
+
+        middlePanel.add(summaryPanel, BorderLayout.NORTH);
+
+        // Recommendations table
         JPanel recPanel = new JPanel(new BorderLayout());
         recPanel.setBorder(BorderFactory.createTitledBorder("Recommended Tracks"));
         String[] cols = {"Track", "Album", "Genre", "Price"};
@@ -48,8 +59,11 @@ public class RecommendationsPanel extends JPanel {
         };
         JTable recTable = new JTable(recommendModel);
         recTable.setFillsViewportHeight(true);
+        recTable.setRowHeight(22);
         recPanel.add(new JScrollPane(recTable), BorderLayout.CENTER);
-        add(recPanel, BorderLayout.SOUTH);
+        middlePanel.add(recPanel, BorderLayout.CENTER);
+
+        add(middlePanel, BorderLayout.CENTER);
 
         // Load customers into dropdown
         populateCustomers();

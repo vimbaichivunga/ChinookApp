@@ -193,33 +193,33 @@ public class NotificationsPanel extends JPanel {
     }
 
     private void loadInactiveCustomers(String filter) {
-        inactiveModel.setRowCount(0);
-        String sql = "SELECT c.CustomerId, c.FirstName, c.LastName, c.Email, c.Country, " +
-                     "MAX(i.InvoiceDate) AS LastInvoice " +
-                     "FROM Customer c LEFT JOIN Invoice i ON c.CustomerId = i.CustomerId " +
-                     "GROUP BY c.CustomerId, c.FirstName, c.LastName, c.Email, c.Country " +
-                     "HAVING LastInvoice IS NULL OR LastInvoice < DATE_SUB(NOW(), INTERVAL 2 YEAR) " +
-                     "AND (c.FirstName LIKE ? OR c.LastName LIKE ? OR c.Email LIKE ?) " +
-                     "ORDER BY LastInvoice ASC";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            String f = "%" + filter + "%";
-            stmt.setString(1, f);
-            stmt.setString(2, f);
-            stmt.setString(3, f);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                inactiveModel.addRow(new Object[]{
-                    rs.getInt("CustomerId"),
-                    rs.getString("FirstName"),
-                    rs.getString("LastName"),
-                    rs.getString("Email"),
-                    rs.getString("Country"),
-                    rs.getString("LastInvoice")
-                });
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+    inactiveModel.setRowCount(0);
+    String sql = "SELECT c.CustomerId, c.FirstName, c.LastName, c.Email, c.Country, " +
+                 "MAX(i.InvoiceDate) AS LastInvoice " +
+                 "FROM Customer c LEFT JOIN Invoice i ON c.CustomerId = i.CustomerId " +
+                 "WHERE (c.FirstName LIKE ? OR c.LastName LIKE ? OR c.Email LIKE ?) " +
+                 "GROUP BY c.CustomerId, c.FirstName, c.LastName, c.Email, c.Country " +
+                 "HAVING LastInvoice IS NULL OR LastInvoice < DATE_SUB(NOW(), INTERVAL 2 YEAR) " +
+                 "ORDER BY LastInvoice ASC";
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        String f = "%" + filter + "%";
+        stmt.setString(1, f);
+        stmt.setString(2, f);
+        stmt.setString(3, f);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            inactiveModel.addRow(new Object[]{
+                rs.getInt("CustomerId"),
+                rs.getString("FirstName"),
+                rs.getString("LastName"),
+                rs.getString("Email"),
+                rs.getString("Country"),
+                rs.getString("LastInvoice")
+            });
         }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
     }
+}
 }
