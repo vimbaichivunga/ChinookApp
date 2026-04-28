@@ -3,6 +3,7 @@ package com.chinook;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
+import java.awt.Dimension;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,6 +22,7 @@ public class Main {
 
             frame.add(tabs);
             frame.setLocationRelativeTo(null);
+            frame.setMinimumSize(new Dimension(800, 600));
             frame.setVisible(true);
         });
     }
