@@ -18,6 +18,7 @@ public class EmployeesPanel extends JPanel {
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         topPanel.add(new JLabel("Search by name or city:"));
         searchField = new JTextField(20);
+        searchField.setToolTipText("Search by first name, last name or city");
         JButton searchBtn = new JButton("Search");
         JButton clearBtn = new JButton("Clear");
         topPanel.add(searchField);
