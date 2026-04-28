@@ -60,6 +60,9 @@ public class TracksPanel extends JPanel {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
         }
+
+        // Row count is visible via scroll
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     }
 
     private void showAddTrackDialog() {
